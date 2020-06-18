@@ -11,8 +11,6 @@ function App() {
     <div className="App">
       <header>
       </header>
-
-      <Container>
         <Switch>
           <Route path="/:userid">
             <UserPage />
@@ -26,8 +24,6 @@ function App() {
             <Registration />
           </Route>
         </Switch>
-      </Container>
-
     </div>
   );
 }

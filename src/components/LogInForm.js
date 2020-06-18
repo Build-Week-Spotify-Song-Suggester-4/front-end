@@ -1,8 +1,9 @@
 import React from "react";
-import {Row, Col, Button, Form, FormGroup, Label, Input} from "reactstrap";
+import {Container, Row, Col, Button, Form, FormGroup, Label, Input} from "reactstrap";
 
 function LogInForm(){
 	return(
+		<Container>
 		<Form>
           <Row>
           <Col sm="6">
@@ -33,6 +34,8 @@ function LogInForm(){
             
           </Row>
         </Form>
+
+        </Container>
 	);
 }
 
