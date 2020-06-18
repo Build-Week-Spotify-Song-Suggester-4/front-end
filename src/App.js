@@ -1,8 +1,9 @@
 import React from 'react';
 import { Container } from "reactstrap";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import LogInForm from "./components/LogInForm";
 import Registration from "./components/Registration"
+import UserPage from "./components/UserPage";
 import './App.css';
 
 function App() {
@@ -12,17 +13,19 @@ function App() {
       </header>
 
       <Container>
-        <Route path="/login">
-          <LogInForm />
-        </Route>
+        <Switch>
+          <Route path="/:userid">
+            <UserPage />
+          </Route>
 
-        <Route path="/register">
-          <Registration />
-        </Route>
+          <Route path="/login">
+            <LogInForm />
+          </Route>
 
-        <Route path="/:userid">
-
-        </Route>
+          <Route path="/register">
+            <Registration />
+          </Route>
+        </Switch>
       </Container>
 
     </div>
