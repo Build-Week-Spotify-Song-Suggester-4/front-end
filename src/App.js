@@ -12,16 +12,16 @@ function App() {
       <header>
       </header>
         <Switch>
-          <Route path="/:userid">
-            <UserPage />
-          </Route>
-
           <Route path="/login">
             <LogInForm />
           </Route>
 
           <Route path="/register">
             <Registration />
+          </Route>
+
+          <Route path="/:userid">
+            <UserPage />
           </Route>
         </Switch>
     </div>

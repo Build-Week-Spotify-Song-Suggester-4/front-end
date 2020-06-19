@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col, UncontrolledCollapse, CardBody } from 'reactstrap';
 import classnames from 'classnames';
+import UserCard from "./UserCard";
 
 function UserPage(){
   const [activeTab, setActiveTab] = useState('1');
@@ -14,24 +15,8 @@ function UserPage(){
     <div>
     	<Container>
     	<Row>
-    		<Col sm="3">
-	    		<Card>
-					<div>
-					    <div color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
-					      Toggle
-					    </div>
-					    <UncontrolledCollapse toggler="#toggler">
-					      <Card>
-					        <CardBody>
-					          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt magni, voluptas debitis
-					          similique porro a molestias consequuntur earum odio officiis natus, amet hic, iste sed
-					          dignissimos esse fuga! Minus, alias.
-					        </CardBody>
-					      </Card>
-					    </UncontrolledCollapse>
-					</div>
-				</Card>
-	    	</Col>
+    		<UserCard />
+    	
 
 		    <Col>
 			      <Nav tabs>
