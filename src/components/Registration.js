@@ -25,7 +25,7 @@ function Registration (props){
 		});
 	}
 
-	const onSubmit = (event) => {
+	const submitHandler = (event) => {
 		event.preventDefault();
 		setUser({
 			username: "",
@@ -47,7 +47,7 @@ function Registration (props){
 	return(
 		<Container>
 			<Jumbotron>
-					<Form onSubmit={onSubmit}>
+					<Form onSubmit={submitHandler}>
 						<h1>Register: </h1>
 						<Row>
 							<Col sm="6">
