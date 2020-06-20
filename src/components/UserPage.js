@@ -13,12 +13,11 @@ function UserPage(){
   return (
   	
     <div>
-    	<Container>
     	<Row>
     		<UserCard />
     	
 
-		    <Col>
+		    <Col sm="9">
 			      <Nav tabs>
 			        <NavItem>
 			          <NavLink
@@ -81,7 +80,7 @@ function UserPage(){
 			      </TabContent>
 		    </Col>
     	</Row>
-    	</Container>
+    	
     </div>
 
    
