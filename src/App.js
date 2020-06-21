@@ -1,9 +1,10 @@
 import React from 'react';
 import { Container } from "reactstrap";
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LogInForm from "./components/LogInForm";
 import Registration from "./components/Registration"
 import UserPage from "./components/UserPage";
+import PrivateRoute from './components/PrivateRoute'
 import './App.css';
 
 function App() {
@@ -20,8 +21,9 @@ function App() {
             <Registration />
           </Route>
 
+          {/* <PrivateRoute path='/private-route' component={UserPage} /> */}
           <Route path="/:userid">
-            <UserPage />
+            <UserPage/>
           </Route>
         </Switch>
     </div>

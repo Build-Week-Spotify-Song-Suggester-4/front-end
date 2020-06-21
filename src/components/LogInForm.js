@@ -1,7 +1,9 @@
 import React, { useState, useEffect} from "react";
+import { useHistory } from "react-router-dom"
 import {Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input} from "reactstrap";
 
-import axiosWithAuth from '../util/axiosWithAuth'
+import axiosWithAuth from '../util/axiosWithAuth';
+// import {  } from '../actions/index'
 
 function LogInForm(){
 
@@ -9,6 +11,8 @@ function LogInForm(){
 		email: '',
 		password: ''
 	})
+
+	const push  = useHistory()
 
 	useEffect(() => {
 		console.log(login)
@@ -19,7 +23,9 @@ function LogInForm(){
 		axiosWithAuth()
 //************************NEED API ADDRESS HERE*************************************
 		.post("", login)
-		.then(res => res)
+		.then(res => {
+			localStorage.setItem("token", res.data.payload);
+			push("/private-route")})
 		.catch(err => console.log(err.message, err.response))
 	}
 
