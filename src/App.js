@@ -13,7 +13,7 @@ function App() {
       <header>
       </header>
         <Switch>
-          <Route path="/login">
+          <Route exact path="/">
             <LogInForm />
           </Route>
 
