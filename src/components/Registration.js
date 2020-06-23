@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import {Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import axiosWithAuth from "../util/axiosWithAuth";
 
 function Registration (props){
 	const [user, setUser] = useState({
 		username: "",
 		password: "",
-		firstName: "",
-		lastName: "",
-		email: "",
-		terms: false
+		first_name: "",
+		last_name: "",
 	});
 
 	const [check, setCheck] = useState(false);
@@ -25,22 +24,24 @@ function Registration (props){
 		});
 	}
 
-	const submitHandler = (event) => {
-		event.preventDefault();
+	const submitHandler = (e) => {
+		e.preventDefault();
+		axiosWithAuth()
+		.post("/register", user)
+		.then(res => console.log(res))
+		.catch(err => alert("Error Registering. Please Try Again", err.message, err.response));
 		setUser({
 			username: "",
 			password: "",
-			firstName: "",
-			lastName: "",
-			email: "",
-			terms: false
+			first_name: "",
+			last_name: "",
 		});
 	};
 
 	const changeHandler = (event) => {
 		setUser({
 			...user,
-			[event.target.name]: event.target.name === "terms" ? event.target.checked : event.target.value
+			[event.target.name]: event.target.value
 		});
 	};
 
@@ -68,24 +69,24 @@ function Registration (props){
 							<Col sm="6">
 								<FormGroup>
 									<Label for="firstName" />
-									<Input type="text" name="firstName" id="firstName" placeholder="first name" value={user.firstName} onChange={changeHandler} />
+									<Input type="text" name="first_name" id="firstName" placeholder="first name" value={user.first_name} onChange={changeHandler} />
 								</FormGroup>
 							</Col>
 							<Col sm="6">
 								<FormGroup>
 									<Label for="lastName" />
-									<Input type="text" name="lastName" id="lastName" placeholder="last name" value={user.lastName} onChange={changeHandler} />
+									<Input type="text" name="last_name" id="lastName" placeholder="last name" value={user.last_name} onChange={changeHandler} />
 								</FormGroup>
 							</Col>
 						</Row>
-						<Row>
+						{/* <Row>
 							<Col sm={{ size: 8, offset: 2 }}>
 								<FormGroup>
 									<Label for="email" />
 									<Input type="email" name="email" id="email" placeholder="email" value={user.email} onChange={changeHandler} />
 								</FormGroup>
 							</Col>
-						</Row>
+						</Row> */}
 							<Col sm="12">
 								<FormGroup>
 									

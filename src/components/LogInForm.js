@@ -8,21 +8,24 @@ import axiosWithAuth from '../util/axiosWithAuth';
 function LogInForm(){
 
 	const [ login, setLogin ] = useState({
-		email: '',
+		username: '',
 		password: ''
 	})
 
 	const push  = useHistory()
 
 	useEffect(() => {
-		console.log(login)
+		axiosWithAuth()
+		.get("https://spotify-lambda.herokuapp.com/")
+		.then(res => console.log(res))
+		.catch(err => err)
 	})
 
 	const submitLogin = e => {
 		e.preventDefault();
 		axiosWithAuth()
 //************************NEED API ADDRESS HERE*************************************
-		.post("", login)
+		.post("/login", login)
 		.then(res => {
 			localStorage.setItem("token", res.data.payload);
 			push("/private-route")})
@@ -45,8 +48,8 @@ function LogInForm(){
 						<Row>
 							<Col sm={{ size: 6, offset: 3 }}>
 								<FormGroup>
-									<Label for="email" />
-									<Input type="email" name="email" value={login.email} onChange={changeHandler} id="email" placeholder="email" />
+									<Label for="username" />
+									<Input type="username" name="username" value={login.username} onChange={changeHandler} id="email" placeholder="User Name" />
 								</FormGroup>
 							</Col>
 						</Row>
@@ -54,7 +57,7 @@ function LogInForm(){
 							<Col sm={{ size: 6, offset: 3 }}>
 								<FormGroup>
 									<Label for="password" />
-									<Input type="password" name="password" value={login.password} onChange={changeHandler} id="password" placeholder="password" />
+									<Input type="password" name="password" value={login.password} onChange={changeHandler} id="password" placeholder="Password" />
 								</FormGroup>
 							</Col>
 						</Row>

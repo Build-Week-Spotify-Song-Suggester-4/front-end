@@ -5,7 +5,7 @@ export default function axiosWithAuth(){
 
     return axios.create({
 //************************NEED API ADDRESS HERE*************************************
-        baseURL: "",
+        baseURL: "https://spotify-lambda.herokuapp.com/",
         headers:{
             Authorization: token
         }
