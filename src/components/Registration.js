@@ -54,14 +54,14 @@ function Registration (props){
 							<Col sm="6">
 								<FormGroup>
 									<Label for="username" />
-									<Input type="username" name="username" id="username" placeholder="username" value={user.username} onChange={changeHandler} />
+									<Input type="username" name="username" id="username" placeholder="User Name" value={user.username} onChange={changeHandler} />
 								</FormGroup>
 							</Col>
 
 							<Col sm="6">
 								<FormGroup>
 									<Label for="password" />
-									<Input type="password" name="password" id="password" placeholder="password" value={user.password} onChange={changeHandler} />
+									<Input type="password" name="password" id="password" placeholder="Password" value={user.password} onChange={changeHandler} />
 								</FormGroup>
 							</Col>
 						</Row>
@@ -69,13 +69,13 @@ function Registration (props){
 							<Col sm="6">
 								<FormGroup>
 									<Label for="firstName" />
-									<Input type="text" name="first_name" id="firstName" placeholder="first name" value={user.first_name} onChange={changeHandler} />
+									<Input type="text" name="first_name" id="firstName" placeholder="First Name" value={user.first_name} onChange={changeHandler} />
 								</FormGroup>
 							</Col>
 							<Col sm="6">
 								<FormGroup>
 									<Label for="lastName" />
-									<Input type="text" name="last_name" id="lastName" placeholder="last name" value={user.last_name} onChange={changeHandler} />
+									<Input type="text" name="last_name" id="lastName" placeholder="Last Name" value={user.last_name} onChange={changeHandler} />
 								</FormGroup>
 							</Col>
 						</Row>

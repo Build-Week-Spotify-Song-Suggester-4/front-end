@@ -16,15 +16,14 @@ function LogInForm(){
 
 	useEffect(() => {
 		axiosWithAuth()
-		.get("https://spotify-lambda.herokuapp.com/")
-		.then(res => console.log(res))
-		.catch(err => err)
+		// .get("https://spotify-lambda.herokuapp.com/")
+		// .then(res => console.log(res))
+		// .catch(err => err)
 	})
 
 	const submitLogin = e => {
 		e.preventDefault();
 		axiosWithAuth()
-//************************NEED API ADDRESS HERE*************************************
 		.post("/login", login)
 		.then(res => {
 			localStorage.setItem("token", res.data.payload);
