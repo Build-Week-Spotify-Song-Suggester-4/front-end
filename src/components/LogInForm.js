@@ -1,21 +1,19 @@
 import React, { useState, useEffect} from "react";
-import { useHistory } from "react-router-dom"
 import {Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input} from "reactstrap";
 
 import axiosWithAuth from '../util/axiosWithAuth';
 // import {  } from '../actions/index'
 
-function LogInForm(){
+function LogInForm(props){
 
 	const [ login, setLogin ] = useState({
-		username: '',
+		email: '',
 		password: ''
 	})
 
-	const push  = useHistory()
 
 	useEffect(() => {
-		axiosWithAuth()
+		// axiosWithAuth()
 		// .get("https://spotify-lambda.herokuapp.com/")
 		// .then(res => console.log(res))
 		// .catch(err => err)
@@ -24,11 +22,11 @@ function LogInForm(){
 	const submitLogin = e => {
 		e.preventDefault();
 		axiosWithAuth()
-		.post("/login", login)
+		.post("/api/login", login)
 		.then(res => {
-			localStorage.setItem("token", res.data.payload);
-			push("/private-route")})
-		.catch(err => console.log(err.message, err.response))
+			localStorage.setItem("token", res.data.token);
+			props.history.push("/private-route")})
+		.catch(err => alert(err.message, err.response))
 	}
 
 
@@ -47,8 +45,8 @@ function LogInForm(){
 						<Row>
 							<Col sm={{ size: 6, offset: 3 }}>
 								<FormGroup>
-									<Label for="username" />
-									<Input type="username" name="username" value={login.username} onChange={changeHandler} id="email" placeholder="User Name" />
+									<Label for="email" />
+									<Input type="email" name="email" value={login.email} onChange={changeHandler} id="email" placeholder="Email" />
 								</FormGroup>
 							</Col>
 						</Row>

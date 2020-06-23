@@ -4,10 +4,8 @@ import axiosWithAuth from "../util/axiosWithAuth";
 
 function Registration (props){
 	const [user, setUser] = useState({
-		username: "",
-		password: "",
-		first_name: "",
-		last_name: "",
+		email: "",
+		password: ""
 	});
 
 	const [check, setCheck] = useState(false);
@@ -27,14 +25,18 @@ function Registration (props){
 	const submitHandler = (e) => {
 		e.preventDefault();
 		axiosWithAuth()
-		.post("/register", user)
-		.then(res => console.log(res))
-		.catch(err => alert("Error Registering. Please Try Again", err.message, err.response));
+		.post("/api/register", user)
+		.then(res => {
+			// console.log(res.data);
+			localStorage.setItem("token", res.data.token);
+			props.history.push("/private-route")
+		})
+		.catch(err => alert("Error Registering. Please Try Again",err),
+		props.history.push("/register")
+		);
 		setUser({
-			username: "",
-			password: "",
-			first_name: "",
-			last_name: "",
+			email: "",
+			password: ""
 		});
 	};
 
@@ -53,8 +55,8 @@ function Registration (props){
 						<Row>
 							<Col sm="6">
 								<FormGroup>
-									<Label for="username" />
-									<Input type="username" name="username" id="username" placeholder="User Name" value={user.username} onChange={changeHandler} />
+									<Label for="email" />
+									<Input type="email" name="email" id="email" placeholder="Email" value={user.email} onChange={changeHandler} />
 								</FormGroup>
 							</Col>
 
@@ -65,7 +67,7 @@ function Registration (props){
 								</FormGroup>
 							</Col>
 						</Row>
-						<Row>
+						{/* <Row>
 							<Col sm="6">
 								<FormGroup>
 									<Label for="firstName" />
@@ -78,7 +80,7 @@ function Registration (props){
 									<Input type="text" name="last_name" id="lastName" placeholder="Last Name" value={user.last_name} onChange={changeHandler} />
 								</FormGroup>
 							</Col>
-						</Row>
+						</Row> */}
 						{/* <Row>
 							<Col sm={{ size: 8, offset: 2 }}>
 								<FormGroup>

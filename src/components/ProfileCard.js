@@ -1,8 +1,22 @@
 import React from "react";
+import { useHistory } from 'react-router-dom'
 import { Col, Card, CardBody, CardTitle, CardSubtitle, CardImg, ListGroup, ListGroupItem, Button, UncontrolledCollapse } from "reactstrap";
+import axiosWithAuth from "../util/axiosWithAuth";
 const placeholder = require("../placeholder.svg");
 
-function UserCard(){
+function UserCard(props){
+
+	const { push } = useHistory()
+
+	const logout = e => {
+		if(localStorage.getItem("token")){ 
+		localStorage.removeItem('token');
+		push("/")
+		window.location.reload(true)
+		}		
+    };
+
+
 	return(
 		<Col sm="2">
 	    		<Card>
@@ -22,7 +36,7 @@ function UserCard(){
 							      <ListGroupItem tag="button">Preferences</ListGroupItem>
 							      <ListGroupItem tag="button">Account Settings</ListGroupItem>
 							      <ListGroupItem tag="button">Song Metrics</ListGroupItem>
-							      <ListGroupItem tag="button" color="danger">Sign Out</ListGroupItem>
+							      <ListGroupItem tag="button" color="danger" onClick={logout}>Sign Out</ListGroupItem>
 							   </ListGroup>
 					    </UncontrolledCollapse>
 					</div>
