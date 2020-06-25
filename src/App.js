@@ -1,10 +1,12 @@
 import React from 'react';
 import { Container } from "reactstrap";
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LogInForm from "./components/LogInForm";
 import Registration from "./components/Registration"
 import UserPage from "./components/UserPage";
+
 import SearchBar from "./components/SearchBar";
+
 import './App.css';
 
 function App() {
@@ -21,12 +23,14 @@ function App() {
             <Registration />
           </Route>
 
+
           <Route path="/search">
             <SearchBar />
           </Route>
 
+
           <Route path="/:userid">
-            <UserPage />
+            <UserPage/>
           </Route>
         </Switch>
     </div>
