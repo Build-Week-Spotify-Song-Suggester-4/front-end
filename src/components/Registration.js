@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import {Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import axiosWithAuth from "../util/axiosWithAuth";
+import { connect } from 'react-redux';
+import { submitHandler, /*acceptBtn*/ } from '../actions/index'
+import { useHistory } from "react-router-dom"
 
 function Registration (props){
 	const [user, setUser] = useState({
-		username: "",
+		email: "",
 		password: "",
 		first_name: "",
 		last_name: "",
+		id: ""
+		// terms: false
 	});
 
-	const [check, setCheck] = useState(false);
+	// const [check, setCheck] = useState(false);
 
 	const [modal, setModal] = useState(false);
 
@@ -23,20 +27,15 @@ function Registration (props){
 			terms: true
 		});
 	}
+	
+	const history = useHistory()
 
-	const submitHandler = (e) => {
+	const onSubmit = (e) => {
 		e.preventDefault();
-		axiosWithAuth()
-		.post("/register", user)
-		.then(res => console.log(res))
-		.catch(err => alert("Error Registering. Please Try Again", err.message, err.response));
-		setUser({
-			username: "",
-			password: "",
-			first_name: "",
-			last_name: "",
-		});
-	};
+		props.submitHandler(user);
+		history.push('/private-route')
+		// window.location.reload(true)
+	}
 
 	const changeHandler = (event) => {
 		setUser({
@@ -48,13 +47,13 @@ function Registration (props){
 	return(
 		<Container>
 			<Jumbotron>
-					<Form onSubmit={submitHandler}>
+					<Form onSubmit={onSubmit}>
 						<h1>Register: </h1>
 						<Row>
 							<Col sm="6">
 								<FormGroup>
-									<Label for="username" />
-									<Input type="username" name="username" id="username" placeholder="User Name" value={user.username} onChange={changeHandler} />
+									<Label for="email" />
+									<Input type="email" name="email" id="email" placeholder="Email" value={user.email} onChange={changeHandler} />
 								</FormGroup>
 							</Col>
 
@@ -90,7 +89,7 @@ function Registration (props){
 							<Col sm="12">
 								<FormGroup>
 									
-										<Input type="checkbox" name="terms" checked={user.terms} onChange={changeHandler} />
+										<Input type="checkbox" name="terms" checked={user.terms}  onChange={changeHandler} />
 										 <span onClick={toggle}>Terms and Conditions</span>
 
 									    <Modal isOpen={modal} toggle={toggle}>
@@ -132,4 +131,21 @@ function Registration (props){
 	);
 }
 
-export default Registration;
+const mapStateToProps = state => {
+    return {
+        email: state.email,
+		password: state.password,
+		first_name: state.first_name,
+		last_name: state.last_name,
+		// terms: state.terms,
+		modal: state.modal,
+		id: state.id
+    }
+}
+
+export default connect (
+    mapStateToProps,
+	{ submitHandler, 
+		// acceptBtn 
+	}
+) ( Registration);

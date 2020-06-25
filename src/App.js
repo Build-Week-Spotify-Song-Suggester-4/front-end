@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container } from "reactstrap";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import LogInForm from "./components/LogInForm";
 import Registration from "./components/Registration"
 import UserPage from "./components/UserPage";
@@ -13,18 +12,12 @@ function App() {
       <header>
       </header>
         <Switch>
-          <Route exact path="/">
-            <LogInForm />
-          </Route>
+          <Route exact path="/login" render={props => <LogInForm {...props}/>} />
 
-          <Route path="/register">
-            <Registration />
-          </Route>
+          <Route path="/register" render={props => <Registration  {...props}/>} />
 
-          {/* <PrivateRoute path='/private-route' component={UserPage} /> */}
-          <Route path="/:userid">
-            <UserPage/>
-          </Route>
+          <PrivateRoute path='/private-route' component={UserPage} />
+          
         </Switch>
     </div>
   );
