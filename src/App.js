@@ -4,7 +4,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LogInForm from "./components/LogInForm";
 import Registration from "./components/Registration"
 import UserPage from "./components/UserPage";
-import PrivateRoute from './components/PrivateRoute'
+
+import SearchBar from "./components/SearchBar";
+
 import './App.css';
 
 function App() {
@@ -21,7 +23,12 @@ function App() {
             <Registration />
           </Route>
 
-          {/* <PrivateRoute path='/private-route' component={UserPage} /> */}
+
+          <Route path="/search">
+            <SearchBar />
+          </Route>
+
+
           <Route path="/:userid">
             <UserPage/>
           </Route>
