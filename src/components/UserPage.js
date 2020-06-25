@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Row, Col } from 'reactstrap';
-
 import ProfileCard from "./ProfileCard";
 import TabsContent from "./TabsContent";
-
 import Tabs from "./Tabs";
 
 function UserPage(){
@@ -18,15 +16,12 @@ function UserPage(){
 		<div>
 			<Row>
 				<ProfileCard />
-
 				<Col sm="9">
 					<Tabs activeTab={activeTab} toggle={toggle} />
 					<TabsContent activeTab={activeTab} />
 				</Col>
 			</Row>
-
 		</div>
-
 
 	);
 }

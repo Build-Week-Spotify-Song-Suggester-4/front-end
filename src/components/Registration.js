@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import {Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import * as yup from "yup";
 import ModalGroup from "./ModalGroup";
 
 function Registration (props){
