@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LogInForm from "./components/LogInForm";
 import Registration from "./components/Registration"
 import UserPage from "./components/UserPage";
-
+import NavBar from "./components/NavBar"
 import SearchBar from "./components/SearchBar";
 
 import './App.css';
@@ -12,8 +12,8 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      <header>
-      </header>
+        <NavBar />
+      
         <Switch>
           <Route path="/login">
             <LogInForm />
