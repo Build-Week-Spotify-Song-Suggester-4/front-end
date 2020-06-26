@@ -10,7 +10,7 @@ function Registration (props){
 		password: "",
 		first_name: "",
 		last_name: "",
-		id: ""
+		// id: ""
 		// terms: false
 	});
 

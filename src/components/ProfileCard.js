@@ -25,10 +25,11 @@ function UserCard(props){
 		props.removeUser(id)
 		localStorage.removeItem('token')
 		localStorage.removeItem('ID')
-		
 		push("/login")
 		window.location.reload(true)
 	}
+
+	
 
 	return(
 		<Col sm="2">
@@ -47,6 +48,7 @@ function UserCard(props){
 					    <UncontrolledCollapse toggler="#toggler">
 					          <ListGroup>
 							      <ListGroupItem onClick={deleteUser} tag="button" color="danger">DELETE ACCOUNT</ListGroupItem>
+								  <ListGroupItem href="/edit-User"tag="button">Update Profile</ListGroupItem>
 							      <ListGroupItem tag="button">Preferences</ListGroupItem>
 							      <ListGroupItem tag="button">Account Settings</ListGroupItem>
 							      <ListGroupItem tag="button">Song Metrics</ListGroupItem>

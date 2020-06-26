@@ -4,6 +4,7 @@ import LogInForm from "./components/LogInForm";
 import Registration from "./components/Registration"
 import UserPage from "./components/UserPage";
 import PrivateRoute from './components/PrivateRoute'
+import EditUser from './components/EditUser'
 import './App.css';
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
           <Route exact path="/login" render={props => <LogInForm {...props}/>} />
 
           <Route path="/register" render={props => <Registration  {...props}/>} />
+
+          <Route path="/edit-User" render={props => <EditUser {...props}/>}/>
 
           <PrivateRoute path='/private-route' component={UserPage} />
           

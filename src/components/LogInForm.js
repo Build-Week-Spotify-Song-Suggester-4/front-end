@@ -16,7 +16,7 @@ function LogInForm(props){
 	useEffect(() => {
 		axiosWithAuth()
 		.get("/users")
-		.then(res => console.log(res))
+		.then(res => console.log(res.data.users))
 		.catch(err => err)
 	})
 
@@ -25,6 +25,7 @@ function LogInForm(props){
 		axiosWithAuth()
 		.post("/auth/login", login)
 		.then(res => {
+			console.log(res.data)
 			localStorage.setItem("token", res.data.token);
 			localStorage.setItem("ID", res.data.user.id)
 			props.history.push("/private-route")
