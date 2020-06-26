@@ -2,81 +2,27 @@ import React from "react";
 import { Row, Col, Card, CardBody, CardTitle, CardSubtitle, CardText, CardImg} from "reactstrap";
 const placeholder = require("../placeholder.svg");
 
-function SongCard(){
+function SongCard(props){
 	return(
-	<Row>
+	
 
-		<Col sm="6">
+	
 			<Card>
 				<Row>
 					<Col >
-						<CardImg src={placeholder} />
+						<CardImg src={props.result.album.images[0].url} />
 					</Col>
 					<Col >
 						<CardBody>
-							<CardTitle>Song name</CardTitle>
-							<CardSubtitle>Artist</CardSubtitle>
-							<CardText>Genre</CardText>
-							<CardText>Duration</CardText>
+							<CardTitle>{props.result.name}</CardTitle>
+							<CardSubtitle>{props.result.artists[0].name}</CardSubtitle>
+							<CardText>{props.result.album.release_date}</CardText>
 						</CardBody>
 					</Col>
 				</Row>
 			</Card>
-		</Col>
-		<Col sm="6">
-			<Card>
-				<Row>
-					<Col >
-						<CardImg src={placeholder} />
-					</Col>
-					<Col >
-						<CardBody>
-							<CardTitle>Song name</CardTitle>
-							<CardSubtitle>Artist</CardSubtitle>
-							<CardText>Genre</CardText>
-							<CardText>Duration</CardText>
-						</CardBody>
-					</Col>
-				</Row>
-			</Card>
-		</Col>
-
-		<Col sm="6">
-			<Card>
-				<Row>
-					<Col >
-						<CardImg src={placeholder} />
-					</Col>
-					<Col>
-						<CardBody>
-							<CardTitle>Song name</CardTitle>
-							<CardSubtitle>Artist</CardSubtitle>
-							<CardText>Genre</CardText>
-							<CardText>Duration</CardText>
-						</CardBody>
-					</Col>
-				</Row>
-			</Card>
-		</Col>
-		<Col sm="6">
-			<Card>
-				<Row>
-					<Col >
-						<CardImg src={placeholder} />
-					</Col>
-					<Col >
-						<CardBody>
-							<CardTitle>Song name</CardTitle>
-							<CardSubtitle>Artist</CardSubtitle>
-							<CardText>Genre</CardText>
-							<CardText>Duration</CardText>
-						</CardBody>
-					</Col>
-				</Row>
-			</Card>
-		</Col>
-		
-	</Row>
+	
+	
 
 		
 		
