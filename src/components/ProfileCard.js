@@ -4,11 +4,17 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { removeUser } from '../actions/index'
 
+
 const placeholder = require("../placeholder.svg");
 
-
 function UserCard(props){
+	
 	const { push } = useHistory()
+
+	const openEditLink = () => {
+		push('/edit-user')
+		window.location.reload(true)
+	}
 
 	const logout = e => {
 		if(localStorage.getItem("token") || localStorage.getItem('ID')){ 
@@ -26,11 +32,11 @@ function UserCard(props){
 		localStorage.removeItem('token')
 		localStorage.removeItem('ID')
 		push("/login")
-		window.location.reload(true)
+		// window.location.reload(true)
 	}
 
-	
 
+	
 	return(
 		<Col sm="2">
 	    		<Card>
@@ -48,7 +54,7 @@ function UserCard(props){
 					    <UncontrolledCollapse toggler="#toggler">
 					          <ListGroup>
 							      <ListGroupItem onClick={deleteUser} tag="button" color="danger">DELETE ACCOUNT</ListGroupItem>
-								  <ListGroupItem href="/edit-User"tag="button">Update Profile</ListGroupItem>
+								  <ListGroupItem onClick={openEditLink} tag="button">Update Profile</ListGroupItem>
 							      <ListGroupItem tag="button">Preferences</ListGroupItem>
 							      <ListGroupItem tag="button">Account Settings</ListGroupItem>
 							      <ListGroupItem tag="button">Song Metrics</ListGroupItem>

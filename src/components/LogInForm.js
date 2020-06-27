@@ -2,9 +2,8 @@ import React, { useState, useEffect} from "react";
 import {Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input} from "reactstrap";
 
 import axiosWithAuth from '../util/axiosWithAuth';
-import { removeUser } from "../actions";
 import { connect } from 'react-redux'
-// import {  } from '../actions/index'
+import { userCreds } from '../actions/index'
 
 function LogInForm(props){
 
@@ -25,10 +24,10 @@ function LogInForm(props){
 		axiosWithAuth()
 		.post("/auth/login", login)
 		.then(res => {
-			console.log(res.data)
+			// props.userCreds(res.data)
 			localStorage.setItem("token", res.data.token);
 			localStorage.setItem("ID", res.data.user.id)
-			props.history.push("/private-route")
+			// props.history.push("/private-route")
 			// window.location.reload(true)
 			}
 		)
@@ -79,5 +78,5 @@ const mapStateToProps = state => {
 
 export default connect (
     mapStateToProps,
-	{ removeUser }
+	{ userCreds }
 ) ( LogInForm);

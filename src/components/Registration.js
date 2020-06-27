@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import axios from 'axios'
 import {Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { connect } from 'react-redux';
-import { submitHandler, /*acceptBtn*/ } from '../actions/index'
+import { submitHandler } from '../actions/index'
 import { useHistory } from "react-router-dom"
+import axiosWithAuth from "../util/axiosWithAuth";
 
 function Registration (props){
 	const [user, setUser] = useState({
@@ -32,9 +34,16 @@ function Registration (props){
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		props.submitHandler(user);
-		history.push('/private-route')
-		// window.location.reload(true)
+		axiosWithAuth()
+		.post("/auth/register", user )
+		.then(res => {
+			console.log(res.data.users);
+			localStorage.setItem("token", res.data.token);
+			localStorage.setItem("ID", res.data.user.id);
+			history.push("/private_route")
+			window.location.reload(true)
+		})
+		.catch(err => alert("Error Registering. Please Try Again", err.message, err.response));
 	}
 
 	const changeHandler = (event) => {
@@ -148,4 +157,4 @@ export default connect (
 	{ submitHandler, 
 		// acceptBtn 
 	}
-) ( Registration);
+) ( Registration );

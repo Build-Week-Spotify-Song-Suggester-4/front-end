@@ -1,4 +1,4 @@
-import { TOGGLE_MODAL, ID_ADD_TO_REG } from '../actions/index';
+import { TOGGLE_MODAL, USER_CREDS } from '../actions/index';
 
 const initialState = {
         email: "",
@@ -15,11 +15,15 @@ export const reducer = ( state = initialState, action ) => {
                   ...state,
                   modal: action.payload
             }
-        case ID_ADD_TO_REG:
-            console.log("Reducer @ ID_ADD_TO_REG", action.payload)
+        case USER_CREDS:
+            console.log("Reducer @ USER_CREDS", action.payload)
             return{
-                ...state,
-                id: Date.now()
+               ...state,
+                email: action.payload.email,
+		        password: action.payload.password,
+		        first_name: action.payload.first_name,
+		        last_name: action.payload.last_name,
+		        id: action.payload.id
             }     
             default:
                 return state;
