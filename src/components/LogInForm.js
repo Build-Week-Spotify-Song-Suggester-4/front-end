@@ -62,9 +62,16 @@ function LogInForm(props){
 								</FormGroup>
 							</Col>
 						</Row>
-						<Col sm="12">
-							<Button type="submit">Log In</Button>
-						</Col>
+						<Row>
+							<Col sm="6">
+								<Button type="submit">Log In</Button>
+							</Col>
+							<Col sm="6">
+							<Button type="button" onClick={()=>{
+                                    props.history.push('/register')}
+                                    } >Create An Account!</Button>
+							</Col>
+						</Row>
 					</Form>
 			</Jumbotron>
 		</Container>
