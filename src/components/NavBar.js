@@ -28,7 +28,7 @@ function NavBar(){
 						</NavItem>
 						<NavItem style={{color:"white"}}className=""> 
 							<NavLink href="#" onClick={()=>{
-                                    history.push('/register')}} >Log Out</NavLink>
+                                    history.push('/private-route')}} >Log Out</NavLink>
 						</NavItem>
 				</Container>	
 			</Nav>
