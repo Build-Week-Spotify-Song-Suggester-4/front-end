@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Card, CardBody, CardTitle, CardSubtitle, CardText, CardImg} from "reactstrap";
-const placeholder = require("../placeholder.svg");
+//const placeholder = require("../placeholder.svg");
 
 function SongCard(props){
 	return(

@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Card, CardBody, CardTitle, CardSubtitle, CardImg, ListGroup, ListGroupItem, Button, UncontrolledCollapse } from "reactstrap";
+import { Col, Card, CardTitle, CardSubtitle, CardImg, ListGroup, ListGroupItem, Button, UncontrolledCollapse } from "reactstrap";
 const placeholder = require("../placeholder.svg");
 
 function UserCard(){

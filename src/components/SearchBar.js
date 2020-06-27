@@ -28,6 +28,8 @@ function SearchBar(){
 		});
 	};
 
+
+
 	const clientId = "fad6324956ce4ca386cfb9ab5ade7ff6";
 	const clientSecret = "b794e2de00504350ae4e9f245f1c4218";
 
@@ -58,6 +60,22 @@ function SearchBar(){
 			});
 		});
 	}, [query]);
+
+	const clickHandler = (id)=>{
+		axios.post("https://accounts.spotify.com/api/token", body, options).then(res => {
+			const token = res.data.access_token;
+			const options = {
+				headers: {
+					"Authorization": "Bearer " + token
+				}
+			};
+
+			axios.get("https://api.spotify.com/v1/recommendations?seed_tracks=" + id, options).then(res => {
+				console.log(res.data.tracks);
+				setResults(res.data.tracks);
+			});
+		});
+	};
 	
 
 	return(
@@ -80,11 +98,13 @@ function SearchBar(){
 
 		{/*result functionality*/}
 		<Row>
-			{results.map(result => (
-				<Col md="6">
-					<SongCard result={result} />
+
+			{results.length > 0 ? results.map(result => (
+
+				<Col md="6" key={result.id} onClick={() => clickHandler(result.id)}>
+					<SongCard result={result}  />
 				</Col>
-			))}
+			)): null}
 		</Row>
 		
 
