@@ -1,6 +1,5 @@
 {
   "name": "front-end",
-  "homepage": "https://spotify-song-finder-prop.netlify.app/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
