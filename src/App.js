@@ -18,7 +18,7 @@ function App() {
 
           <Route path="/register" render={props => <Registration  {...props}/>} />
 
-          <PrivateRouteEdit path="/edit-user" component={EditUser}/>
+          <PrivateRouteEdit path='/edit-user' component={EditUser}/>
 
           <PrivateRoute path='/private-route' component={UserPage} />
           
