@@ -23,7 +23,7 @@ function UserCard(props){
 		if(localStorage.getItem("token") || localStorage.getItem('ID')){ 
 		localStorage.removeItem('token');
 		localStorage.removeItem('ID')
-		push("/login")
+		push("/")
 		window.location.reload(true)
 		}		
 	};

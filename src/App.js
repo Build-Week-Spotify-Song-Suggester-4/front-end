@@ -17,7 +17,7 @@ function App() {
       <NavBar/>
         <Switch>
 
-          <Route path="/login" render={props => <LogInForm {...props}/>} />
+          <Route exact path="/" render={props => <LogInForm {...props}/>} />
 
           <Route path="/register" render={props => <Registration  {...props}/>} />
 

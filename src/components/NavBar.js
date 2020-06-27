@@ -21,7 +21,7 @@ function NavBar(){
 					<NavbarBrand style={{color:"lime"}} >Spotify</NavbarBrand>
 					<Container className="themed-container" fluid="lg">
 						<NavItem style={{color:"white"}}className="">
-							<NavLink  href="/login">Log In</NavLink>
+							<NavLink  href="/">Log In</NavLink>
 						</NavItem>
 						<NavItem style={{color:"white"}}className=""> 
 							<NavLink  href="/register">Sign Up</NavLink>
