@@ -1,5 +1,4 @@
 import axiosWithAuth from '../util/axiosWithAuth';
-import axios from 'axios';
 export const TOGGLE_MODAL = "TOGGLE_ON";
 export const SUBMIT_REGISTRATION = "SUBMIT_REGISTRATION";
 export const SET_TERMS = "SET_TERMS";
@@ -26,7 +25,7 @@ export const update = (user) => dispatch => {
     console.log(user)
     axiosWithAuth()
         .put(`users/${user.id}`, user)
-        .then(res => console.log(res))
+        .then(res => console.log("From update @ Actions", res))
         .catch(err => console.log(err))
 }
 
@@ -35,7 +34,8 @@ export const userCreds = user => dispatch => {
     axiosWithAuth()
         .get("/users")
         .then(res =>
-                dispatch({ type: USER_CREDS, payload: res.data })
+                {console.log('res.data', res.data);
+                dispatch({ type: USER_CREDS, payload: res.data })}
             )
         .catch(err => err)
 }

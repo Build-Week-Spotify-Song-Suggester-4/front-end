@@ -27,8 +27,7 @@ function LogInForm(props){
 			// props.userCreds(res.data)
 			localStorage.setItem("token", res.data.token);
 			localStorage.setItem("ID", res.data.user.id)
-			// props.history.push("/private-route")
-			// window.location.reload(true)
+			props.history.push("/private-route")
 			}
 		)
 		.catch(err => alert(err.message, err.response))

@@ -1,5 +1,6 @@
-import React from "react";
-import { Col, Card, CardTitle, CardSubtitle, CardImg, ListGroup, ListGroupItem, Button, UncontrolledCollapse } from "reactstrap";
+import React, { useState, useEffect} from "react";
+import axiosWithAuth from '../util/axiosWithAuth'
+import { Col, Card, CardTitle, CardImg, ListGroup, ListGroupItem, Button, UncontrolledCollapse } from "reactstrap";
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { removeUser } from '../actions/index'
@@ -8,6 +9,8 @@ import { removeUser } from '../actions/index'
 const placeholder = require("../placeholder.svg");
 
 function UserCard(props){
+
+	const [ userCard, setUserCard ] = useState({})
 	
 	const { push } = useHistory()
 
@@ -25,15 +28,16 @@ function UserCard(props){
 		}		
 	};
 
-	const id = localStorage.getItem('ID')
-
-	const deleteUser = () => {
-		props.removeUser(id)
-		localStorage.removeItem('token')
-		localStorage.removeItem('ID')
-		push("/login")
-		// window.location.reload(true)
-	}
+	useEffect(() => {
+        let user_id = localStorage.getItem('ID');
+        axiosWithAuth().get(`/users`)
+            .then(res=>{
+                let users_arr = res.data.users
+                let editable_user = users_arr.filter((user)=> user.id == user_id)
+                setUserCard(editable_user[0])
+            })
+            .catch(err=>console.log(err))
+    },[])
 
 
 	
@@ -42,8 +46,7 @@ function UserCard(props){
 	    		<Card>
 					<div>
 						<CardImg src={placeholder} />
-						<CardTitle>User Name</CardTitle>
-						<CardSubtitle>Actual Name</CardSubtitle>
+						<CardTitle>{`${userCard.first_name} ${userCard.last_name}`}</CardTitle>
 						
 						<Button type="button" id="toggler" block>
 							<svg className="bi bi-list" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -53,7 +56,6 @@ function UserCard(props){
 						
 					    <UncontrolledCollapse toggler="#toggler">
 					          <ListGroup>
-							      <ListGroupItem onClick={deleteUser} tag="button" color="danger">DELETE ACCOUNT</ListGroupItem>
 								  <ListGroupItem onClick={openEditLink} tag="button">Update Profile</ListGroupItem>
 							      <ListGroupItem tag="button">Preferences</ListGroupItem>
 							      <ListGroupItem tag="button">Account Settings</ListGroupItem>
