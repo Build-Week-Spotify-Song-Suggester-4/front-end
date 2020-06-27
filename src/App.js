@@ -3,9 +3,10 @@ import { Route, Switch } from "react-router-dom";
 import LogInForm from "./components/LogInForm";
 import Registration from "./components/Registration"
 import UserPage from "./components/UserPage";
-import PrivateRoute from './components/PrivateRoute'
-import PrivateRouteEdit from './components/PrivateRouteEdit'
-import EditUser from './components/EditUser'
+import PrivateRoute from './components/PrivateRoute';
+import PrivateRouteEdit from './components/PrivateRouteEdit';
+import EditUser from './components/EditUser';
+import NavBar from './components/NavBar'
 import './App.css';
 
 function App() {
@@ -13,8 +14,10 @@ function App() {
     <div className="App">
       <header>
       </header>
+      <NavBar/>
         <Switch>
-          <Route exact path="/" render={props => <LogInForm {...props}/>} />
+
+          <Route path="/login" render={props => <LogInForm {...props}/>} />
 
           <Route path="/register" render={props => <Registration  {...props}/>} />
 
