@@ -16,7 +16,7 @@ function UserCard(props){
 
 	const openEditLink = () => {
 		push('/edit-user')
-		window.location.reload(true)
+		// window.location.reload(true)
 	}
 
 	const logout = e => {
