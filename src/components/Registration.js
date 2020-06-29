@@ -1,23 +1,26 @@
 import React, { useState } from "react";
-import {Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import {Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { connect } from 'react-redux';
+import { submitHandler } from '../actions/index'
+import { useHistory } from "react-router-dom"
+import axiosWithAuth from "../util/axiosWithAuth";
 import * as yup from "yup";
-import ModalGroup from "./ModalGroup";
+// import ModalGroup from "./ModalGroup";
 
-function Registration (props){
+function Registration (){
 	const [user, setUser] = useState({
-		username: "",
-		password: "",
-		firstName: "",
-		lastName: "",
 		email: "",
+		password: "",
+		first_name: "",
+		last_name: "",
 		terms: false
 	});
 
 	const [errors, setErrors] = useState({
 		username: "",
 		password: "",
-		firstName: "",
-		lastName: "",
+		first_name: "",
+		last_name: "",
 		email: "",
 		terms: ""
 	});
@@ -25,8 +28,8 @@ function Registration (props){
 	const schema = yup.object().shape({
 		username: yup.string().min(2).required("username is required"),
 		password: yup.string().min(2).required("password is required"),
-		firstName: yup.string().min(2).required("first name is required"),
-		lastName: yup.string().min(2).required("last name is required"),
+		first_name: yup.string().min(2).required("first name is required"),
+		last_name: yup.string().min(2).required("last name is required"),
 		email: yup.string().email("please enter a valid email").required("email is required"),
 		terms: yup.boolean().oneOf([true])
 	});
@@ -57,18 +60,23 @@ function Registration (props){
 			terms: true
 		});
 	}
+	const history = useHistory()
 
-	const submitHandler = (event) => {
-		event.preventDefault();
-		setUser({
-			username: "",
-			password: "",
-			firstName: "",
-			lastName: "",
-			email: "",
-			terms: false
-		});
-	};
+	const onSubmit = (e) => {
+		e.preventDefault();
+		if(user.terms){
+			axiosWithAuth()
+			.post("/auth/register", user )
+			.then(res => {
+				console.log(res);
+				localStorage.setItem("token", res.data.token);
+				localStorage.setItem("ID", res.data.user.id);
+				history.push("/private-route")
+				// window.location.reload(true)
+			})
+			.catch(err => alert("Error Registering. Please Try Again", err.message, err.response));
+		} else{alert("Please agree to Terms and Conditions to continue!")}	
+	}
 
 	const changeHandler = (event) => {
 		event.persist();
@@ -83,14 +91,14 @@ function Registration (props){
 	return(
 		<Container>
 			<Jumbotron>
-					<Form onSubmit={submitHandler}>
+					<Form onSubmit={onSubmit}>
 						<h1>Register: </h1>
 						<Row>
 							<Col sm="6">
 								<FormGroup>
-									<Label for="username" />
-									<Input type="username" name="username" id="username" placeholder="username" value={user.username} onChange={changeHandler} />
-									{errors.username.length > 0 ? <p className="error">{errors.username}</p> : null}
+									<Label for="email" />
+									<Input type="email" name="email" id="email" placeholder="email" value={user.email} onChange={changeHandler} />
+									{errors.email.length > 0 ? <p className="error">{errors.email}</p> : null}
 								</FormGroup>
 							</Col>
 
@@ -106,33 +114,52 @@ function Registration (props){
 							<Col sm="6">
 								<FormGroup>
 									<Label for="firstName" />
-									<Input type="text" name="firstName" id="firstName" placeholder="first name" value={user.firstName} onChange={changeHandler} />
-									{errors.firstName.length > 0 ? <p className="error">{errors.firstName}</p> : null}
+									<Input type="text" name="first_name" id="first_name" placeholder="First Name" value={user.first_name} onChange={changeHandler} />
+									{errors.first_name.length > 0 ? <p className="error">{errors.first_name}</p> : null}
 								</FormGroup>
 							</Col>
 							<Col sm="6">
 								<FormGroup>
 									<Label for="lastName" />
-									<Input type="text" name="lastName" id="lastName" placeholder="last name" value={user.lastName} onChange={changeHandler} />
-									{errors.lastName.length > 0 ? <p className="error">{errors.lastName}</p> : null}
-								</FormGroup>
-							</Col>
-						</Row>
-						<Row>
-							<Col sm={{ size: 8, offset: 2 }}>
-								<FormGroup>
-									<Label for="email" />
-									<Input type="email" name="email" id="email" placeholder="email" value={user.email} onChange={changeHandler} />
-									{errors.email.length > 0 ? <p className="error">{errors.email}</p> : null}
+									<Input type="text" name="last_name" id="last_name" placeholder="Last Name" value={user.last_name} onChange={changeHandler} />
+									{errors.last_name.length > 0 ? <p className="error">{errors.last_name}</p> : null}
 								</FormGroup>
 							</Col>
 						</Row>
 							<Col sm="12">
 								<FormGroup>
-									<Input type="checkbox" name="terms" checked={user.terms} onChange={changeHandler} />
-									<span onClick={toggle}>Terms and Conditions</span>
-									<ModalGroup modal={modal} toggle={toggle} acceptBtn={acceptBtn} />
-									{errors.terms.length > 0 ? <p className="error">{errors.terms}</p> : null}
+									
+								<Input type="checkbox" name="terms" checked={user.terms} onChange={changeHandler} />
+										 <span onClick={toggle}>Terms and Conditions</span>
+
+									    <Modal isOpen={modal} toggle={toggle}>
+									      <ModalHeader toggle={toggle}>Terms and Condtions</ModalHeader>
+									      <ModalBody>
+									        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+									        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+									        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+									        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+									        mollit anim id est laborum.</p>
+
+									        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+									        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+									        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+									        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+									        mollit anim id est laborum.</p>
+
+									        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+									        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+									        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+									        fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+									        mollit anim id est laborum.</p>
+									      </ModalBody>
+									      <ModalFooter>
+									        <Button color="primary" onClick={acceptBtn}>Accept</Button>
+									        <Button color="secondary" onClick={toggle}>Cancel</Button>
+									      </ModalFooter>
+									    </Modal>
+											{errors.terms.length > 0 ? <p className="error">{errors.terms}</p> : null}
+									
 								</FormGroup>
 							</Col>
 
@@ -145,4 +172,20 @@ function Registration (props){
 	);
 }
 
-export default Registration;
+const mapStateToProps = state => {
+    return {
+        email: state.email,
+		password: state.password,
+		first_name: state.first_name,
+		last_name: state.last_name,
+		terms: state.terms,
+		modal: state.modal,
+		id: state.id
+    }
+}
+
+export default connect (
+    mapStateToProps,
+	{ submitHandler
+	}
+) ( Registration );

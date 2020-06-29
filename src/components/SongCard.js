@@ -4,19 +4,16 @@ import { Row, Col, Card, CardBody, CardTitle, CardSubtitle, CardText, CardImg} f
 
 function SongCard(props){
 	return(
-	
-
-	
 			<Card>
 				<Row>
 					<Col >
-						<CardImg src={props.result.album.images[0].url} />
+						<CardImg src={props.result ? props.result.album.images[0].url : <img alt="missing image"/>} />
 					</Col>
 					<Col >
 						<CardBody>
-							<CardTitle>{props.result.name}</CardTitle>
-							<CardSubtitle>{props.result.artists[0].name}</CardSubtitle>
-							<CardText>{props.result.album.release_date}</CardText>
+							<CardTitle>{props.result ? props.result.name: null}</CardTitle>
+							<CardSubtitle>{props.result ? props.result.artists[0].name : null}</CardSubtitle>
+							<CardText>{props.result ? props.result.album.release_date : null}</CardText>
 						</CardBody>
 					</Col>
 				</Row>

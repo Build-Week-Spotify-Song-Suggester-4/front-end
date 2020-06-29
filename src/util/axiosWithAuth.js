@@ -4,8 +4,7 @@ export default function axiosWithAuth(){
     const token = localStorage.getItem('token');
 
     return axios.create({
-//************************NEED API ADDRESS HERE*************************************
-        baseURL: "",
+        baseURL: "https://spotify-be-ls.herokuapp.com/",
         headers:{
             Authorization: token
         }
