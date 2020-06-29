@@ -6,18 +6,21 @@ import UserPage from "./components/UserPage";
 import PrivateRoute from './components/PrivateRoute';
 import PrivateRouteEdit from './components/PrivateRouteEdit';
 import EditUser from './components/EditUser';
-import NavBar from './components/NavBar'
+import NavBar from './components/NavBar';
+import SearchBar from "./components/SearchBar";
+
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header>
-      </header>
       <NavBar/>
+      
         <Switch>
 
-          <Route exact path="/" render={props => <LogInForm {...props}/>} />
+          <Route exact path="/" component={SearchBar}/>
+
+          <Route path="/login" render={props => <LogInForm {...props}/>} />
 
           <Route path="/register" render={props => <Registration  {...props}/>} />
 

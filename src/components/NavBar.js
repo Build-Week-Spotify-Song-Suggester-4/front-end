@@ -10,7 +10,7 @@ function NavBar(){
 		if(localStorage.getItem("token") || localStorage.getItem('ID')){ 
 		localStorage.removeItem('token');
 		localStorage.removeItem('ID')
-		history.push("/")
+		history.push("/login")
 		// window.location.reload(true)
 		}		
     };
@@ -21,7 +21,7 @@ function NavBar(){
 					<NavbarBrand style={{color:"lime"}} >Spotify</NavbarBrand>
 					<Container className="themed-container" fluid="lg">
 						<NavItem style={{color:"white"}}className="">
-							<NavLink  href="/">Log In</NavLink>
+							<NavLink  href="/login">Log In</NavLink>
 						</NavItem>
 						<NavItem style={{color:"white"}}className=""> 
 							<NavLink  href="/register">Sign Up</NavLink>

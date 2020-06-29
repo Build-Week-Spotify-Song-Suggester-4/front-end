@@ -45,7 +45,7 @@ function EditUser({ userCreds, removeUser, email, password, first_name, last_nam
 		removeUser(user_id)
 		localStorage.removeItem('token')
 		localStorage.removeItem('ID')
-		history.push("/")
+		history.push("/login")
 		// window.location.reload(true)
 	}
 

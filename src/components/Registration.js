@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { submitHandler } from '../actions/index'
 import { useHistory } from "react-router-dom"
 import axiosWithAuth from "../util/axiosWithAuth";
+import * as yup from "yup";
+// import ModalGroup from "./ModalGroup";
 
 function Registration (props){
 	const [user, setUser] = useState({
@@ -13,6 +15,39 @@ function Registration (props){
 		last_name: "",
 		terms: false
 	});
+
+	const [errors, setErrors] = useState({
+		username: "",
+		password: "",
+		first_name: "",
+		last_name: "",
+		email: "",
+		terms: ""
+	});
+
+	const schema = yup.object().shape({
+		username: yup.string().min(2).required("username is required"),
+		password: yup.string().min(2).required("password is required"),
+		first_name: yup.string().min(2).required("first name is required"),
+		last_name: yup.string().min(2).required("last name is required"),
+		email: yup.string().email("please enter a valid email").required("email is required"),
+		terms: yup.boolean().oneOf([true])
+	});
+
+	const validateChange = event => {
+		yup.reach(schema, event.target.name).validate(event.target.value).then(isValid => {
+			setErrors({
+				...errors,
+				[event.target.name]: ""
+			})
+		}).catch(err =>{
+			setErrors({
+				...errors, [event.target.name]: err.errors[0]
+				})
+			})	
+	};
+
+	
 
 	const [modal, setModal] = useState(false);
 
@@ -42,6 +77,9 @@ function Registration (props){
 	}
 
 	const changeHandler = (event) => {
+		event.persist();
+		validateChange(event);
+
 		setUser({
 			...user,
 			[event.target.name]: event.target.name === "terms" ? event.target.checked : event.target.value
@@ -57,14 +95,16 @@ function Registration (props){
 							<Col sm="6">
 								<FormGroup>
 									<Label for="email" />
-									<Input type="email" name="email" id="email" placeholder="Email" value={user.email} onChange={changeHandler} />
+									<Input type="email" name="email" id="email" placeholder="email" value={user.email} onChange={changeHandler} />
+									{errors.email.length > 0 ? <p className="error">{errors.email}</p> : null}
 								</FormGroup>
 							</Col>
 
 							<Col sm="6">
 								<FormGroup>
 									<Label for="password" />
-									<Input type="password" name="password" id="password" placeholder="Password" value={user.password} onChange={changeHandler} />
+									<Input type="password" name="password" id="password" placeholder="password" value={user.password} onChange={changeHandler} />
+									{errors.password.length > 0 ? <p className="error">{errors.password}</p> : null}
 								</FormGroup>
 							</Col>
 						</Row>
@@ -72,13 +112,15 @@ function Registration (props){
 							<Col sm="6">
 								<FormGroup>
 									<Label for="firstName" />
-									<Input type="text" name="first_name" id="firstName" placeholder="First Name" value={user.first_name} onChange={changeHandler} />
+									<Input type="text" name="first_name" id="first_name" placeholder="First Name" value={user.first_name} onChange={changeHandler} />
+									{errors.first_name.length > 0 ? <p className="error">{errors.first_name}</p> : null}
 								</FormGroup>
 							</Col>
 							<Col sm="6">
 								<FormGroup>
 									<Label for="lastName" />
-									<Input type="text" name="last_name" id="lastName" placeholder="Last Name" value={user.last_name} onChange={changeHandler} />
+									<Input type="text" name="last_name" id="last_name" placeholder="Last Name" value={user.last_name} onChange={changeHandler} />
+									{errors.last_name.length > 0 ? <p className="error">{errors.last_name}</p> : null}
 								</FormGroup>
 							</Col>
 						</Row>
@@ -114,6 +156,7 @@ function Registration (props){
 									        <Button color="secondary" onClick={toggle}>Cancel</Button>
 									      </ModalFooter>
 									    </Modal>
+											{errors.terms.length > 0 ? <p className="error">{errors.terms}</p> : null}
 									
 								</FormGroup>
 							</Col>
