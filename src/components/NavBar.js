@@ -18,8 +18,11 @@ function NavBar(){
     return(
 		<Navbar color="dark" className="">
 			<Nav style={{width:"100%"}}className="row">
-					<NavbarBrand style={{color:"lime"}} >Spotify</NavbarBrand>
+					<NavbarBrand style={{color:"lime"}} >Spotify Song Suggester PRO</NavbarBrand>
 					<Container className="themed-container" fluid="lg">
+						<NavItem style={{color:"white"}}className="">
+							<NavLink  href="/">Search</NavLink>
+						</NavItem>
 						<NavItem style={{color:"white"}}className="">
 							<NavLink  href="/login">Log In</NavLink>
 						</NavItem>

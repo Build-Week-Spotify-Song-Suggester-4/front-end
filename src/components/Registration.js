@@ -7,7 +7,7 @@ import axiosWithAuth from "../util/axiosWithAuth";
 import * as yup from "yup";
 // import ModalGroup from "./ModalGroup";
 
-function Registration (props){
+function Registration (){
 	const [user, setUser] = useState({
 		email: "",
 		password: "",
@@ -64,16 +64,18 @@ function Registration (props){
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		axiosWithAuth()
-		.post("/auth/register", user )
-		.then(res => {
-			console.log(res);
-			localStorage.setItem("token", res.data.token);
-			localStorage.setItem("ID", res.data.user.id);
-			history.push("/private-route")
-			// window.location.reload(true)
-		})
-		.catch(err => alert("Error Registering. Please Try Again", err.message, err.response));	
+		if(user.terms){
+			axiosWithAuth()
+			.post("/auth/register", user )
+			.then(res => {
+				console.log(res);
+				localStorage.setItem("token", res.data.token);
+				localStorage.setItem("ID", res.data.user.id);
+				history.push("/private-route")
+				// window.location.reload(true)
+			})
+			.catch(err => alert("Error Registering. Please Try Again", err.message, err.response));
+		} else{alert("Please agree to Terms and Conditions to continue!")}	
 	}
 
 	const changeHandler = (event) => {
@@ -176,7 +178,7 @@ const mapStateToProps = state => {
 		password: state.password,
 		first_name: state.first_name,
 		last_name: state.last_name,
-		// terms: state.terms,
+		terms: state.terms,
 		modal: state.modal,
 		id: state.id
     }
@@ -184,7 +186,6 @@ const mapStateToProps = state => {
 
 export default connect (
     mapStateToProps,
-	{ submitHandler, 
-		// acceptBtn 
+	{ submitHandler
 	}
 ) ( Registration );
