@@ -1,6 +1,7 @@
 //artist then song title	
-import React, { useState } from "react";
-import { Container, Jumbotron, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import React, { useState, useEffect } from "react";
+import { Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import SongCard from "./SongCard";
 import axios from "axios";
 
 function SearchBar(){
@@ -8,6 +9,8 @@ function SearchBar(){
 		artistName: "",
 		songName: ""
 	});
+
+	const [results, setResults] = useState([]);
 
 	const changeHandler= (event) => {
 		setQuery({
@@ -25,6 +28,56 @@ function SearchBar(){
 		});
 	};
 
+
+
+	const clientId = "fad6324956ce4ca386cfb9ab5ade7ff6";
+	const clientSecret = "b794e2de00504350ae4e9f245f1c4218";
+
+	const options = {
+		headers: {
+			"Content-Type" : "application/x-www-form-urlencoded",
+			"Authorization": "Basic " + btoa(clientId + ":" + clientSecret) 
+		} 
+	};
+
+	const body = "grant_type=client_credentials";
+
+	useEffect(() => {
+		axios.post("https://accounts.spotify.com/api/token", body, options).then(res => {
+			const token = res.data.access_token;
+			const options = {
+				headers: {
+					"Authorization": "Bearer " + token
+				}
+			};
+			const nameQuery = query.artistName.split(" ").join("+");
+			const songQuery = query.songName.split(" ").join("+");
+
+			axios.get("https://api.spotify.com/v1/search?q=" + nameQuery + "+" + songQuery + "&type=track", options).then(res => {
+				
+				console.log(res.data.tracks.items);
+				setResults(res.data.tracks.items);
+			});
+		});
+	}, [query]);
+
+	const clickHandler = (id)=>{
+		axios.post("https://accounts.spotify.com/api/token", body, options).then(res => {
+			const token = res.data.access_token;
+			const options = {
+				headers: {
+					"Authorization": "Bearer " + token
+				}
+			};
+
+			axios.get("https://api.spotify.com/v1/recommendations?seed_tracks=" + id, options).then(res => {
+				console.log(res.data.tracks);
+				setResults(res.data.tracks);
+			});
+		});
+	};
+	
+
 	return(
 		<Container>
 			<Jumbotron>
@@ -41,6 +94,22 @@ function SearchBar(){
 					<Button type="submit">Submit</Button>
 				</Form>
 			</Jumbotron>
+
+
+		{/*result functionality*/}
+		<Row>
+
+			{results.length > 0 ? results.map(result => (
+
+				<Col md="6" key={result.id} onClick={() => clickHandler(result.id)}>
+					<SongCard result={result}  />
+				</Col>
+			)): null}
+		</Row>
+		
+
+			
+		
 		</Container>
 		
 	);
