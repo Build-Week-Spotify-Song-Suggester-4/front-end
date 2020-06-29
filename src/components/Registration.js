@@ -11,11 +11,8 @@ function Registration (props){
 		password: "",
 		first_name: "",
 		last_name: "",
-		// id: ""
-		// terms: false
+		terms: false
 	});
-
-	// const [check, setCheck] = useState(false);
 
 	const [modal, setModal] = useState(false);
 
@@ -28,7 +25,6 @@ function Registration (props){
 			terms: true
 		});
 	}
-	
 	const history = useHistory()
 
 	const onSubmit = (e) => {
@@ -42,13 +38,13 @@ function Registration (props){
 			history.push("/private-route")
 			// window.location.reload(true)
 		})
-		.catch(err => alert("Error Registering. Please Try Again", err.message, err.response));
+		.catch(err => alert("Error Registering. Please Try Again", err.message, err.response));	
 	}
 
 	const changeHandler = (event) => {
 		setUser({
 			...user,
-			[event.target.name]: event.target.value
+			[event.target.name]: event.target.name === "terms" ? event.target.checked : event.target.value
 		});
 	};
 
@@ -86,18 +82,10 @@ function Registration (props){
 								</FormGroup>
 							</Col>
 						</Row>
-						{/* <Row>
-							<Col sm={{ size: 8, offset: 2 }}>
-								<FormGroup>
-									<Label for="email" />
-									<Input type="email" name="email" id="email" placeholder="email" value={user.email} onChange={changeHandler} />
-								</FormGroup>
-							</Col>
-						</Row> */}
 							<Col sm="12">
 								<FormGroup>
 									
-										<Input type="checkbox" name="terms" checked={user.terms}  onChange={changeHandler} />
+								<Input type="checkbox" name="terms" checked={user.terms} onChange={changeHandler} />
 										 <span onClick={toggle}>Terms and Conditions</span>
 
 									    <Modal isOpen={modal} toggle={toggle}>

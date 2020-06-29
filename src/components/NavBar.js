@@ -11,7 +11,7 @@ function NavBar(){
 		localStorage.removeItem('token');
 		localStorage.removeItem('ID')
 		history.push("/")
-		window.location.reload(true)
+		// window.location.reload(true)
 		}		
     };
     
@@ -27,8 +27,7 @@ function NavBar(){
 							<NavLink  href="/register">Sign Up</NavLink>
 						</NavItem>
 						<NavItem style={{color:"white"}}className=""> 
-							<NavLink href="#" onClick={()=>{
-                                    history.push('/private-route')}} >Log Out</NavLink>
+							<NavLink href="#" onClick={logout} >Log Out</NavLink>
 						</NavItem>
 				</Container>	
 			</Nav>

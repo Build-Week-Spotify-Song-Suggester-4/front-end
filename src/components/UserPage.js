@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import classnames from 'classnames';
 import SongCard from "./SongCard";
 import ProfileCard from "./ProfileCard";
 import UserCard from "./UserCard";
+import axiosWithAuth from '../util/axiosWithAuth';
 
 function UserPage(){
   const [activeTab, setActiveTab] = useState('1');
@@ -12,13 +13,17 @@ function UserPage(){
     if(activeTab !== tab) setActiveTab(tab);
   }
 
+  useEffect(()=>{
+	  axiosWithAuth()
+	  .get("/users")
+	  .then(res => console.log(res.data.users))
+	  .catch(err => err)
+  })
   return (
   	
     <div>
     	<Row>
     		<ProfileCard />
-    	
-
 		    <Col sm="9">
 
 			      <Nav tabs>

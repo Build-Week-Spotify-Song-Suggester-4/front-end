@@ -7,22 +7,18 @@ export const ID_ADD_TO_REG= "ID_ADD_TO_REG";
 export const USER_CREDS = "USER_CREDS";
 
 export const submitHandler = user => dispatch => {
-    // console.log(user)
     dispatch({ type: SUBMIT_REGISTRATION})
-    
 };
 
 export const removeUser = (id) => dispatch => {
     dispatch({ type: REMOVE_USER })
     axiosWithAuth()
 		.delete(`/users/${id}`)
-        .then(res=> console.log(res.data.users)
-            )
+        .then(res=> res)
 		.catch(err => console.log('Person Not Deleted', err.message))
 }
 
 export const update = (user) => dispatch => {
-    console.log(user)
     axiosWithAuth()
         .put(`users/${user.id}`, user)
         .then(res => console.log("From update @ Actions", res))
@@ -30,7 +26,6 @@ export const update = (user) => dispatch => {
 }
 
 export const userCreds = user => dispatch => {
-    console.log("userCreds @Actions", user)
     axiosWithAuth()
         .get("/users")
         .then(res =>
@@ -39,5 +34,6 @@ export const userCreds = user => dispatch => {
             )
         .catch(err => err)
 }
+
 
 

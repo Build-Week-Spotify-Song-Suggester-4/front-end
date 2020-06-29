@@ -1,22 +1,15 @@
-import React, { useState, useEffect} from "react";
+import React, { useState } from "react";
 import {Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input} from "reactstrap";
 
 import axiosWithAuth from '../util/axiosWithAuth';
 import { connect } from 'react-redux'
 import { userCreds } from '../actions/index'
 
-function LogInForm(props){
+function LogInForm({ userCreds, history }){
 
 	const [ login, setLogin ] = useState({
-		email: '',
-		password: ''
-	})
-
-	useEffect(() => {
-		axiosWithAuth()
-		.get("/users")
-		.then(res => console.log(res.data.users))
-		.catch(err => err)
+		email: "",
+		password: "" 
 	})
 
 	const submitLogin = e => {
@@ -24,10 +17,10 @@ function LogInForm(props){
 		axiosWithAuth()
 		.post("/auth/login", login)
 		.then(res => {
-			// props.userCreds(res.data)
+			userCreds(res.data)
 			localStorage.setItem("token", res.data.token);
 			localStorage.setItem("ID", res.data.user.id)
-			props.history.push("/private-route")
+			history.push("/private-route")
 			}
 		)
 		.catch(err => alert(err.message, err.response))
@@ -68,7 +61,7 @@ function LogInForm(props){
 							</Col>
 							<Col sm="6">
 							<Button type="button" onClick={()=>{
-                                    props.history.push('/register')}
+                                    history.push('/register')}
                                     } >Create An Account!</Button>
 							</Col>
 						</Row>
@@ -79,7 +72,10 @@ function LogInForm(props){
 }
 
 const mapStateToProps = state => {
-    return {}
+    return {
+		email: state.email,
+		password: state.password
+	}
 }
 
 export default connect (
