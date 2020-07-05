@@ -18,7 +18,7 @@ function EditUser({ userCreds, removeUser, email, password, first_name, last_nam
         password: "",
         first_name: "",
         last_name: "",
-        id:id
+        id:""
     })
     
 
@@ -39,11 +39,9 @@ function EditUser({ userCreds, removeUser, email, password, first_name, last_nam
         })
     }
 
-    let user_id = localStorage.getItem('ID');
-
-
     const deleteUser = (e) => {
         e.preventDefault()
+        let user_id = localStorage.getItem('ID')
 		removeUser(user_id)
 		localStorage.removeItem('token')
 		localStorage.removeItem('ID')
@@ -52,6 +50,7 @@ function EditUser({ userCreds, removeUser, email, password, first_name, last_nam
 	}
 
     useEffect(() => {
+        let user_id = localStorage.getItem('ID');
         axiosWithAuth().get(`/users`)
             .then(res=>{
                 let users_arr = res.data.users

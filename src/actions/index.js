@@ -25,14 +25,16 @@ export const update = (user) => dispatch => {
         .catch(err => console.log(err))
 }
 
-export const userCreds = user => dispatch => {
-    axiosWithAuth()
-        .get("/users")
-        .then(res =>
-                {console.log('res.data', res.data);
-                dispatch({ type: USER_CREDS, payload: res.data })}
-            )
-        .catch(err => err)
+export const userCreds = () => dispatch => {
+        let user_id = localStorage.getItem('ID');
+
+    axiosWithAuth().get(`/users`)
+            .then(res=>{
+                let users_arr = res.data.users
+                let editable_user = users_arr.filter((user)=> user.id == user_id)
+                dispatch({ type: USER_CREDS, payload: editable_user[0]})
+            })
+            .catch(err=>console.log(err)) 
 }
 
 export const tokenAndSearch = (query) => dispatch => {

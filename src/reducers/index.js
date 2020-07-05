@@ -13,12 +13,11 @@ export const reducer = ( state = initialState, action ) => {
         case USER_CREDS:
             console.log("Reducer @ USER_CREDS", action.payload)
             return{
-               ...state,
+                ...state,
                 email: action.payload.email,
-		        password: action.payload.password,
 		        first_name: action.payload.first_name,
-		        last_name: action.payload.last_name,
-		        id: action.payload.id
+                last_name: action.payload.last_name,
+                id: action.payload.id
             }  
         case TOKEN_AND_SEARCH:
             console.log(action.payload)

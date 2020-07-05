@@ -29,9 +29,9 @@ function NavBar(){
 						<NavItem style={{color:"white"}}className=""> 
 							<NavLink  href="/register">Sign Up</NavLink>
 						</NavItem>
-						<NavItem style={{color:"white"}}className=""> 
+						{document.location.pathname == '/private-route' ? <NavItem style={{color:"white"}}className=""> 
 							<NavLink href="/" onClick={logout} >Log Out</NavLink>
-						</NavItem>
+						</NavItem>: null}
 				</Container>	
 			</Nav>
 		</Navbar>
