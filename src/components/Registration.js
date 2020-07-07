@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Container, Jumbotron, Row, Col, Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { connect } from 'react-redux';
 import { submitHandler } from '../actions/index'
 import { useHistory } from "react-router-dom"
@@ -13,8 +13,10 @@ function Registration (){
 		password: "",
 		first_name: "",
 		last_name: "",
-		terms: false
+		terms: false,
 	});
+
+	console.log(user)
 
 	const [errors, setErrors] = useState({
 		username: "",
@@ -60,6 +62,7 @@ function Registration (){
 			terms: true
 		});
 	}
+
 	const history = useHistory()
 
 	const onSubmit = (e) => {
@@ -180,7 +183,7 @@ const mapStateToProps = state => {
 		last_name: state.last_name,
 		terms: state.terms,
 		modal: state.modal,
-		id: state.id
+		id: state.id,
     }
 }
 

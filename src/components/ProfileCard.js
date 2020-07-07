@@ -30,7 +30,8 @@ function UserCard(props){
 
 	useEffect(() => {
         let user_id = localStorage.getItem('ID');
-        axiosWithAuth().get(`/users`)
+		axiosWithAuth()
+			.get(`/users`)
             .then(res=>{
                 let users_arr = res.data.users
                 let editable_user = users_arr.filter((user)=> user.id == user_id)
@@ -76,4 +77,4 @@ const mapStateToProps = state => {
 export default connect (
     mapStateToProps,
 	{ removeUser }
-) ( UserCard);
+) ( UserCard );

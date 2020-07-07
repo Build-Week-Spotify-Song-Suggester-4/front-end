@@ -22,6 +22,7 @@ function LogInForm({ userCreds, history }){
 			localStorage.setItem("token", res.data.token);
 			localStorage.setItem("ID", res.data.user.id)
 			history.push("/private-route")
+			window.location.reload(true)
 			}
 		)
 		.catch(err => alert(err.message, err.response))

@@ -18,7 +18,7 @@ function EditUser({ userCreds, removeUser, email, password, first_name, last_nam
         password: "",
         first_name: "",
         last_name: "",
-        id:id
+        id:""
     })
     
 
